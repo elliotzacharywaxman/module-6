@@ -4,12 +4,15 @@ lat = 0
 
 var requestUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly&appid=438eb9d009ebfe66af145687c77e94db`;
 
-
+var searchButton = document.querySelector('#searchButton')
+console.log(searchButton)
+var searchInput = document.querySelector('#search');
 var tempCon = document.getElementById('temp1');
 var windCon = document.getElementById('wind1');
 var humidityCon = document.getElementById('humidity1');
 var uvIndexCon = document.getElementById('uvIndex1');
 var cardContainer = document.querySelector('#cardContainer');
+weatherItems = ['temp','wind','humidity','uvIndex']
 
 function getApi(requestUrl) {
     fetch(requestUrl)
@@ -29,8 +32,6 @@ function getApi(requestUrl) {
             var uvIndex = "UV Index: " + data.current.uvi
             uvIndexCon.textContent = uvIndex;
 
-            
-
             for (var i = 0; i < 5; i++){
             
                 var cardEl = document.createElement('div');
@@ -41,7 +42,6 @@ function getApi(requestUrl) {
                 var temp = "Temp: " + (data.daily[i].temp.day)
                 tempCon.textContent = temp;
                 cardEl.appendChild(tempCon)
-                
                 
                 windCon = document.createElement('div')
                 var wind = "Wind: " + data.daily[i].wind_speed
@@ -65,23 +65,13 @@ function getApi(requestUrl) {
     };
 getApi(requestUrl);
 
-// for (var i = 0; i < repos.length; i++) {
-//     var repoName = repos[i].owner.login + '/' + repos[i].name;
+function saveSearch(){
+// save related search data as an object
+    var searchedCity = searchInput.value.trim()
+    localStorage.setItem("Searched City", JSON.stringify(searchedCity));
+}   
 
-//     var repoEl = document.createElement('div');
-//     repoEl.classList = 'list-item flex-row justify-space-between align-center';
-
-//     var titleEl = document.createElement('span');
-//     titleEl.textContent = repoName;
-
-//     repoEl.appendChild(titleEl);
-
-//     var statusEl = document.createElement('span');
-//     statusEl.classList = 'flex-row align-center';
-
-// localStorage.setItem("studentGrade", JSON.stringify(studentGrade));
-// }
-
-// function renderLastGrade() {
-//   // Use JSON.parse() to convert text to JavaScript object
-//   var lastGrade = JSON.parse(localStorage.getItem("studentGrade"));
+searchButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    saveSearch()
+});
