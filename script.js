@@ -13,6 +13,7 @@ var weatherItems = ['temp', 'wind', 'humidity', 'uvIndex']
 var searchButtonEl = document.getElementById('searchButton')
 var cityCon = document.getElementById('city');
 var cityArr = JSON.parse(localStorage.getItem("searched city")) || [];
+var chosenCity = document.getElementById("chosenCity")
 
 // var cityArr = [];
 // Getting Items form Local Storage so that it doesn't throw an error
@@ -24,7 +25,8 @@ var cityArr = JSON.parse(localStorage.getItem("searched city")) || [];
 searchButtonEl.addEventListener('click', function () {
     // getting the searched city input
     var city = $('#search').val()
-    console.log(city)
+    chosenCity.innerHTML = city
+    console.log("This is the city", city)
     if (cityArr.indexOf(city) === -1) {
         cityArr.push(city)
         localStorage.setItem("searched city", JSON.stringify(cityArr))
@@ -47,7 +49,7 @@ function getLL(cityname) {
     console.log(cityname)
     var requestUrl0 = `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&appid=${appKey}&units=imperial`
     console.log(requestUrl0)
-
+    chosenCity.innerHTML = cityname
     //     var Searchedcity = localStorage.getItem("searched city")
     fetch(requestUrl0)
         .then(function (response0) {
