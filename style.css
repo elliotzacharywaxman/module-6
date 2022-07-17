@@ -1,8 +1,8 @@
 :root {
---primary:rgb(45, 7, 120);
---secondary:green;
---accent:lightgreen;
---background:lightblue;
+    --primary: rgb(45, 7, 120);
+    --secondary: green;
+    --accent: lightgreen;
+    --background: lightblue;
 }
 
 .tiptop {
@@ -24,13 +24,14 @@
     height: 250px;
     background: beige;
 }
+
 .box2 {
     border: dotted gray;
     height: 250px;
     background: beige;
 }
 
-.indCard{
+.indCard {
     background-color: navy;
     height: 200px;
     width: 200px;
