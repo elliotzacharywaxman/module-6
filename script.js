@@ -33,7 +33,9 @@ searchButtonEl.addEventListener('click', function () {
 
     // console.log(city)
     // calling the gettLL function to get the longitude and latitude
+
     getLL(city)
+    populate()
     // cityCon.textContent = localStorage.getItem('searched city');
     // testing that lon and lat are stored (was success)
     // console.log("EVENT LISTENER:","Lat:",lat,"lon:",lon,"city:", city);
@@ -119,11 +121,27 @@ function getApi(lat, lon) {
         })
 };
 
-for (var i = 0; i < cityArr.length; i++) {
-    var li = $("<li>").addClass("list-group-item").text(cityArr[i]).attr("data-city", cityArr[i])
-    $("#citymenu").append(li)
+function populate() {
+    console.log(cityArr)
+    document.getElementById("citymenu").innerHTML = ""
+    for (var i = 0; i < cityArr.length; i++) {
+        var li = $("<button>").addClass("list-group-item").text(cityArr[i]).attr("data-city", cityArr[i])
+        li.on("click", function (event) {
+            event.preventDefault();
+            console.log(event.target)
+            getLL(event.target.innerHTML)
+        })
+        // li.addEventListener("click", function (event) {
+        //     event.preventDefault();
+        //     console.log(event.target.value)
+        // })
+        $("#citymenu").append(li)
+    }
 }
 
-$(".list-group-item").on("click", function () {
-    console.log(this.attr("data-city"))
-})
+// $(".list-group-item").on("click", function () {
+//     console.log(this.attr("data-city"))
+// })
+
+populate()
+
